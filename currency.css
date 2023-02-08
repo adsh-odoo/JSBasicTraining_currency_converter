@@ -1,0 +1,81 @@
+body{
+    font-family: 'Source Code Pro', monospace;
+    background-color: rgb(210, 230, 247);
+    
+}
+.outer_container{
+    border: 2px solid black ;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    margin-top: 10%;
+    background-color: rgb(247, 230, 210);
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px ;
+   
+}
+.input{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    
+}
+.select_tag{
+    display: flex;
+    justify-content: space-around;
+}
+input::placeholder {
+                 
+    /* Firefox, Chrome, Opera */
+    text-align: center;
+}
+
+#input{
+    margin: 10px;
+    padding: 10px;
+    border: hidden;
+    border-bottom: groove;
+    outline: none;
+    font-size: 1.8rem;
+}
+.selection{
+    margin: 5px;
+    width: 40%;
+    border: hidden;
+    outline: none;
+    border-bottom: groove;
+    font-size: 1.8rem;
+
+}
+#btn,#btn_reset{
+    margin: 20px;
+    padding: 20px;
+    background-color:#16437E;
+    border-radius: 20px;
+    border: hidden;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: 0.2s all;
+    
+}
+#btn_reset{
+
+}
+#btn:hover{
+    transform: translateY(-10px);
+    
+}
+#btn_reset:hover{
+    transform: translateY(-10px);
+    
+}
+/* removing the arrow button of the input tag */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+
+}

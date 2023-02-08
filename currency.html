@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="currency.css">
+</head>
+<body>
+    <div class="outer_container">
+            <h1>convert your currency here</h1>
+            <div class="input">
+                <input type="number" placeholder="enter the Amount" id = "input">
+                <div class="select_tag">
+                    <select name="selection" id="selection1" class="selection" onchange="myFunction(this)">
+
+                    </select>
+                    <h2>TO</h2>
+                    <select name="selection" id="selection2" class="selection">
+    
+                    </select>
+                </div>
+            </div>
+        
+            <div class="btn">
+                <button id="btn">convert</button>
+                <button id="btn_reset">Reset</button>
+
+            </div>
+            <h2 id="result">
+            </h5>
+    </div>
+    
+    <script src="currency.js"></script>
+   
+</body>
+</html>
