@@ -1,142 +1,115 @@
-// const { onMounted } = require("./owl");
-
-const {Component , mount ,xml, onMounted,props} = owl;
-check = "hello hello2"
+const {Component ,onWillUpdateProps, mount ,xml, onMounted,props, useState} = owl;
 
 class Results  extends Component{
     static template = xml`
     <div class="status">
-        <h1 id="status_human"><t t-esc = "props.human_choice"/></h1>
-        <h1 id = "status"></h1>
-        <h1 id="status_bot"></h1>
+        <h1 id="status_human"><t t-esc = "props.state[0]"/></h1>
+        <h1 id = "status"><t t-esc="props.state[1]"/></h1>
+        <h1 id="status_bot"><t t-esc="props.state[2]"/></h1>
     </div>
-    
     `
-    static props = ['human_choice']
+    static props = ['state']
 }
-
 class Counter extends Component {
     static template = xml `
         <div class="score_container">
             <h3>Your Score 
-                <div class="score" id="human"></div>
+                <div class="score" id="human"><t t-esc="props.state[0]"/></div>
             </h3>
             <h3> Bot score
-                <div class="score" id="bot"></div>
+                <div class="score" id="bot"><t t-esc="props.state[1]"/></div>
             </h3>
             
         </div>
-        
-        
-        
-    
     `
-    // static components = {Buttons,Results} 
-
+    static props = ['state']
 }
 class Buttons extends Component{
     static template = xml `
     <div class="outer_container">
-    <Counter/>
+    <Counter state = "[state.your_score,state.bot_score]"/>
     <div class="buttons_container">
-        <button class="btn" id = "rock" t-on-click="rock">Rock</button>
-        <button class="btn" id = "paper" t-on-click="paper">Paper</button>
-        <button class="btn" id = "scissor" t-on-click="scissor">Scissor</button>
+        <button class="btn" id = "rock" t-on-click="evaluator">Rock</button>
+        <button class="btn" id = "paper" t-on-click="evaluator">Paper</button>
+        <button class="btn" id = "scissor" t-on-click="evaluator">Scissor</button>
     </div>
-    <Results human_choice = "human_choice"/>
-    </div>
-    
-    
+    <Results state = "[state.human_choice,state.status,state.computer_choice_final]"/>
+    </div>    
     `
-    human_choice = "human"
-    status = "hello"
-    computer_choice_final = ""
-    rock(){
-        let computer_choice = Math.ceil(Math.random()*3)
-        if(computer_choice == 2){
-            this.human_choice="Rock"
-            this.status = "You Lose"
-            this.computer_choice_final="paper"
-            console.log(this.computer_choice_final)
-
-        }
-        else if (computer_choice == 3){
-            this.human_choice="Rock"
-            this.status = "You Win"
-            this.computer_choice_final="scissor"
-            console.log(this.computer_choice_final)
-
-        }
-        else{
-            this.human_choice="Rock"
-            this.status = "tied"
-            this.computer_choice_final="rock"
-            console.log(this.computer_choice_final)
-        }
-        console.log(this.status)
+    setup(){
+        this.state = useState({
+            human_choice : "Press",
+            status:"Buttons",
+            computer_choice_final : "To Start",
+            your_score: 0,
+            bot_score: 0,
+        })
+        
     }
-    
-    paper(){
+
+    evaluator=(event)=>{
         let computer_choice = Math.ceil(Math.random()*3)
-        if(computer_choice == 1){
-            this.human_choice="Paper"
-            this.status = "You Win"
-            this.computer_choice_final="rock"
+        if(event.target.textContent==="Rock"){
+            if(computer_choice == 2){
+                        this.state.human_choice="Rock"
+                        this.state.status = "You Lose"
+                        this.state.computer_choice_final="paper"
+                        this.state.bot_score++
+                    }
+                    else if (computer_choice == 3){
+                        this.state.human_choice="Rock"
+                        this.state.status = "You Win"
+                        this.state.computer_choice_final="scissor"
+                        this.state.your_score++
+                    }
+                    else{
+                        this.state.human_choice="Rock"
+                        this.state.status = "tied"
+                        this.state.computer_choice_final="rock"
+                    }
+        }
+        if(event.target.textContent==="Paper"){
+            if(computer_choice == 1){
+                        this.state.human_choice="Paper"
+                        this.state.status = "You Win"
+                        this.state.computer_choice_final="rock"
+                        this.state.your_score++
+            
+                    }
+                    else if (computer_choice == 3){
+                        this.state.human_choice="Paper"
+                        this.state.status = "You Lose"
+                        this.state.computer_choice_final="scissor"
+                        this.state.bot_score++
+                    }
+                    else{
+                        this.state.human_choice="paper"
+                        this.state.status = "tied"
+                        this.state.computer_choice_final="paper"
+                    }
+        }
+        if(event.target.textContent==="Scissor"){
+            if(computer_choice == 1){
+                        this.state.human_choice="Scissor"
+                        this.state.status = "You Lose"
+                        this.state.computer_choice_final="rock"
+                        this.state.bot_score++
+                    }
+                    else if (computer_choice == 2){
+                        this.state.human_choice="Scissor"
+                        this.state.status = "You Win"
+                        this.state.computer_choice_final="paper"
+                        this.state.your_score++
+                    }
+                    else{
+                        this.state.human_choice="Scissor"
+                        this.state.status = "tied"
+                        this.state.computer_choice_final="scissor"
+                    }
+        }
 
-        }
-        else if (computer_choice == 3){
-            this.human_choice="Paper"
-            this.status = "You Lose"
-            this.computer_choice_final="scissor"
-
-        }
-        else{
-            this.human_choice="paper"
-            this.status = "tied"
-            this.computer_choice_final="paper"
-        }
-        console.log(this.status)
-
-    }
-    
-    scissor(){
-        let computer_choice = Math.ceil(Math.random()*3)
-        if(computer_choice == 1){
-            this.human_choice="Scissor"
-            this.status = "You Lose"
-            this.computer_choice_final="rock"
-        }
-        else if (computer_choice == 2){
-            this.human_choice="Scissor"
-            this.status = "You Win"
-            this.computer_choice_final="paper"
-        }
-        else{
-            this.human_choice="Scissor"
-            this.status = "tied"
-            this.computer_choice_final="scissor"
-        }
-        console.log(this.status)
-    }
-    
-    // setup(){
-        // onMounted(()=> console.log(computer_choice))
-    // }
-    static components = {Counter,Results}
-    
+    }   
+    static components = {Counter,Results}   
 }
-
-
-// class app extends Component{
-//     static template = xml`
-//     <div class="outer_container">
-//         <Counter/>
-//         <Buttons/>
-//         <Results/>
-//     </div>
-//     `
-//     static components = {Counter,Buttons,Results}
-// }
-
 
 mount(Buttons, document.body)

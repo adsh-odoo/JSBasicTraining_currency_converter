@@ -29,8 +29,6 @@ body{
     justify-content: space-around;
 }
 input::placeholder {
-                 
-    /* Firefox, Chrome, Opera */
     text-align: center;
 }
 
@@ -73,8 +71,8 @@ input::placeholder {
     transform: translateY(-10px);
     
 }
-/* removing the arrow button of the input tag */
-input::-webkit-outer-spin-button,
+
+input::-webkit-outer-spin-button,           /* removing the arrow button of the input tag */
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 
